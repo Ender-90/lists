@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "simpleStack.hpp"
+
 using namespace std;
 
 
@@ -28,8 +30,13 @@ void displayList(ele * oneList);
 void constructNewList(ele * &oneList){
     addToEndOfList(5, oneList);
     addToEndOfList(7, oneList);
+    addToEndOfList(8, oneList);
+    addToEndOfList(17, oneList);
+    addToEndOfList(32, oneList);
     displayList(oneList);
     addToEndOfList(9, oneList);
+    addToEndOfList(1, oneList);
+    addToEndOfList(2, oneList);
     addToEndOfList(8, oneList);
     addToEndOfList(11, oneList);
     displayList(oneList);
@@ -41,10 +48,12 @@ ele * searchInList(int x, ele * oneList){
     ele * tmp = oneList;
     bool isFound = false;
 
-    while(tmp && !isFound){
-        tmp = tmp->next;
-        if(tmp->data == x)
+    while(tmp){
+        if(tmp->data == x){
             isFound = true;
+            break;
+        }
+        tmp = tmp->next;
     }
 
     if(isFound)
@@ -191,6 +200,88 @@ ele * readAdress(int i, ele * oneList){
     }
 }
 
+// Ex. 06
+
+void displayRevListWithStack(ele * oneList){
+
+    ele * tmp = oneList;
+    stackItem * s = 0;
+    while(tmp){
+        pushToStack(s, tmp->data);
+        tmp = tmp->next;
+    }
+    cout<<"\n";
+
+    while(s)
+        cout<<popFromStack(s)<<" ";
+}
+
+// Ex. 07
+
+void displayRevListWithoutStack(ele * oneList){
+    int length = sizeOfList(oneList);
+    ele * displayElements [length];
+
+    ele * tmp = oneList;
+    for(int i = 0; i < length; i++){
+        if(tmp){
+            displayElements[i] = tmp;
+            tmp = tmp->next;
+        }
+    }
+
+    cout<<"\n";
+
+    for(int i = length - 1; i >= 0; i--){
+        if(displayElements[i])
+            cout<<displayElements[i]->data<<" ";
+    }
+}
+
+// Ex. 08
+
+ele * unionLists(ele* l1, ele * l2){
+    if(!l1)
+        return l2;
+    else if(!l2)
+        return l1;
+    else{
+        ele * unionList = 0;
+        ele * tmp = l1;
+        while(tmp){
+            addToEndOfList(tmp->data, unionList);
+            tmp = tmp->next;
+        }
+        tmp = l2;
+        while(tmp){
+            addToEndOfList(tmp->data, unionList);
+            tmp = tmp->next;
+        }
+        return unionList;
+    }
+}
+
+// Ex. 10
+
+ele * findMinInList(ele * oneList){
+    ele * tmp = oneList;
+
+    if(tmp){
+        ele * minElement = tmp;
+
+        while(tmp){
+            tmp = tmp->next;
+            if(tmp && tmp->data < minElement->data)
+                minElement = tmp;
+        }
+        return minElement;
+    }else{
+    cout<<"Lista jest pusta.";
+    return 0;
+    }
+}
+
+
 //=================================
 int main()
 {
@@ -198,7 +289,8 @@ int main()
     constructNewList(testOneList);
 
     ele * searchElement = searchInList(9 , testOneList);
-    cout<<"\n"<<searchElement->data;
+    if(searchElement)
+        cout<<"\n"<<searchElement->data;
 
     insertToList(14, 3, testOneList);
     displayList(testOneList);
@@ -209,6 +301,16 @@ int main()
     cout<<"\n"<<read(3, testOneList);
     cout<<"\n"<<sizeOfList(testOneList);
     cout<<"\n"<<readAdress(3, testOneList);
+    displayRevListWithStack(testOneList);
+    displayRevListWithoutStack(testOneList);
+    cout<<"\n"<<findMinInList(testOneList)->data;
+
+    ele * testTwoList = unionLists(testOneList, testOneList);
+    displayList(testTwoList);
+
+    ele * testThreeList = unionLists(testOneList, 0);
+    displayList(testThreeList);
+
 //    destroyList(testOneList);
 //    displayList(testOneList);
 
