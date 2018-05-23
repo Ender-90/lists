@@ -241,24 +241,19 @@ void displayRevListWithoutStack(ele * oneList){
 // Ex. 08
 
 ele * unionLists(ele* l1, ele * l2){
-    if(!l1)
-        return l2;
-    else if(!l2)
-        return l1;
-    else{
-        ele * unionList = 0;
-        ele * tmp = l1;
-        while(tmp){
-            addToEndOfList(tmp->data, unionList);
-            tmp = tmp->next;
-        }
-        tmp = l2;
-        while(tmp){
-            addToEndOfList(tmp->data, unionList);
-            tmp = tmp->next;
-        }
-        return unionList;
+
+    ele * unionList = 0;
+    ele * tmp = l1;
+    while(tmp){
+        addToEndOfList(tmp->data, unionList);
+        tmp = tmp->next;
     }
+    tmp = l2;
+    while(tmp){
+        addToEndOfList(tmp->data, unionList);
+        tmp = tmp->next;
+    }
+    return unionList;
 }
 
 // Ex. 10
