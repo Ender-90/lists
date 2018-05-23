@@ -15,7 +15,6 @@ void addToEndOfList(int x, ele * &oneList){
         oneList = new ele{x, 0};
     else{
         ele * tmp;
-        tmp = 0;
         tmp = oneList;
         while(tmp && tmp->next){
             tmp = tmp->next;
@@ -25,8 +24,7 @@ void addToEndOfList(int x, ele * &oneList){
 }
 
 void displayList(ele * oneList){
-    ele * tmp = 0;
-    tmp = oneList;
+    ele * tmp = oneList;
 
     cout<<"\n";
     while(tmp){
@@ -63,20 +61,98 @@ ele * searchInList(int x, ele * oneList){
         return 0;
 }
 
-void insertToList(int x, int i, ele * &oneList);
+void insertToList(int x, int i, ele * &oneList){
 
-void removeFromList(int i, ele * &oneList);
-int read(int i, ele * oneList);
+    ele * actualItem = oneList;
+    ele * lastItem = 0;
+    int counter = 0;
+    bool isFound = false;
+
+    while(actualItem && !isFound){
+        counter++;
+        if(counter == i){
+            isFound = true;
+            break;
+        }
+        lastItem = actualItem;
+        actualItem = actualItem->next;
+    }
+
+    if(isFound){
+        ele * tmp = new ele{x, actualItem};
+        lastItem->next = tmp;
+    }else{
+        cout<<"Podany element nie istnieje";
+    }
+}
+
+void removeFromList(int i, ele * &oneList){
+
+    ele * actualItem = oneList;
+    ele * lastItem = 0;
+    int counter = 0;
+    bool isFound = false;
+
+    while(actualItem && !isFound){
+        counter++;
+        if(counter == i){
+            isFound = true;
+            break;
+        }
+        lastItem = actualItem;
+        actualItem = actualItem->next;
+    }
+
+    if(isFound){
+        lastItem->next = actualItem->next;
+        delete actualItem;
+        actualItem = 0;
+    }else{
+        cout<<"Podany element nie istnieje";
+    }
+}
+
+int read(int i, ele * oneList){
+
+    ele * actualItem = oneList;
+    ele * lastItem = 0;
+    int counter = 0;
+    bool isFound = false;
+
+    while(actualItem && !isFound){
+        counter++;
+        if(counter == i){
+            isFound = true;
+            break;
+        }
+        lastItem = actualItem;
+        actualItem = actualItem->next;
+    }
+
+    if(isFound)
+        return actualItem->data;
+    else{
+        cout<<"Podany element nie istnieje";
+        return -1;
+    }
+}
 
 
 int main()
 {
-    ele * testOneList;
-    testOneList = 0;
+    ele * testOneList = 0;
     constructNewList(testOneList);
 
-//    ele * searchElement = searchInList(9 , testOneList);
-//    cout<<"\n"<<searchElement->data;
+    ele * searchElement = searchInList(9 , testOneList);
+    cout<<"\n"<<searchElement->data;
+
+    insertToList(14, 3, testOneList);
+    displayList(testOneList);
+
+    removeFromList(3, testOneList);
+    displayList(testOneList);
+
+    cout<<"\n"<<read(3, testOneList);
 
     return 0;
 }
