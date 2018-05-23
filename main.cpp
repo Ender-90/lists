@@ -23,15 +23,7 @@ void addToEndOfList(int x, ele * &oneList){
     }
 }
 
-void displayList(ele * oneList){
-    ele * tmp = oneList;
-
-    cout<<"\n";
-    while(tmp){
-        cout<<tmp->data<<" ";
-        tmp = tmp->next;
-    }
-}
+void displayList(ele * oneList);
 
 void constructNewList(ele * &oneList){
     addToEndOfList(5, oneList);
@@ -115,7 +107,6 @@ void removeFromList(int i, ele * &oneList){
 int read(int i, ele * oneList){
 
     ele * actualItem = oneList;
-    ele * lastItem = 0;
     int counter = 0;
     bool isFound = false;
 
@@ -125,7 +116,6 @@ int read(int i, ele * oneList){
             isFound = true;
             break;
         }
-        lastItem = actualItem;
         actualItem = actualItem->next;
     }
 
@@ -137,7 +127,71 @@ int read(int i, ele * oneList){
     }
 }
 
+// Ex. 02;
 
+int sizeOfList(ele * oneList){
+    int counter = 0;
+    ele * tmp = oneList;
+    while(tmp){
+        counter++;
+        tmp = tmp->next;
+    }
+    return counter;
+}
+
+// Ex. 03
+
+void displayList(ele * oneList){
+    ele * tmp = oneList;
+
+    cout<<"\n";
+    while(tmp){
+        cout<<tmp->data<<" ";
+        tmp = tmp->next;
+    }
+    cout<<" Koniec listy";
+}
+
+
+// Ex. 04
+
+void destroyList(ele * &oneList){
+    ele * tmp = oneList;
+    ele * next = 0;
+    while(tmp){
+        next = tmp->next;
+        delete tmp;
+        tmp = next;
+    }
+    oneList = 0;
+}
+
+// Ex. 05
+
+ele * readAdress(int i, ele * oneList){
+
+    ele * actualItem = oneList;
+    int counter = 0;
+    bool isFound = false;
+
+    while(actualItem && !isFound){
+        counter++;
+        if(counter == i){
+            isFound = true;
+            break;
+        }
+        actualItem = actualItem->next;
+    }
+
+    if(isFound)
+        return actualItem;
+    else{
+        cout<<"Podany element nie istnieje";
+        return 0;
+    }
+}
+
+//=================================
 int main()
 {
     ele * testOneList = 0;
@@ -153,6 +207,10 @@ int main()
     displayList(testOneList);
 
     cout<<"\n"<<read(3, testOneList);
+    cout<<"\n"<<sizeOfList(testOneList);
+    cout<<"\n"<<readAdress(3, testOneList);
+//    destroyList(testOneList);
+//    displayList(testOneList);
 
     return 0;
 }
