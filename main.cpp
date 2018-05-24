@@ -46,19 +46,12 @@ void constructNewList(ele * &oneList){
 
 ele * searchInList(int x, ele * oneList){
     ele * tmp = oneList;
-    bool isFound = false;
 
     while(tmp){
-        if(tmp->data == x){
-            isFound = true;
-            break;
-        }
+        if(tmp->data == x)
+            return tmp;
         tmp = tmp->next;
     }
-
-    if(isFound)
-        return tmp;
-    else
         return 0;
 }
 
@@ -69,7 +62,7 @@ void insertToList(int x, int i, ele * &oneList){
     int counter = 0;
     bool isFound = false;
 
-    while(actualItem && !isFound){
+    while(actualItem){
         counter++;
         if(counter == i){
             isFound = true;
@@ -94,7 +87,7 @@ void removeFromList(int i, ele * &oneList){
     int counter = 0;
     bool isFound = false;
 
-    while(actualItem && !isFound){
+    while(actualItem){
         counter++;
         if(counter == i){
             isFound = true;
@@ -287,24 +280,24 @@ int main()
     if(searchElement)
         cout<<"\n"<<searchElement->data;
 
-    insertToList(14, 3, testOneList);
-    displayList(testOneList);
-
-    removeFromList(3, testOneList);
-    displayList(testOneList);
-
-    cout<<"\n"<<read(3, testOneList);
-    cout<<"\n"<<sizeOfList(testOneList);
-    cout<<"\n"<<readAdress(3, testOneList);
-    displayRevListWithStack(testOneList);
-    displayRevListWithoutStack(testOneList);
-    cout<<"\n"<<findMinInList(testOneList)->data;
-
-    ele * testTwoList = unionLists(testOneList, testOneList);
-    displayList(testTwoList);
-
-    ele * testThreeList = unionLists(testOneList, 0);
-    displayList(testThreeList);
+//    insertToList(14, 3, testOneList);
+//    displayList(testOneList);
+//
+//    removeFromList(3, testOneList);
+//    displayList(testOneList);
+//
+//    cout<<"\n"<<read(3, testOneList);
+//    cout<<"\n"<<sizeOfList(testOneList);
+//    cout<<"\n"<<readAdress(3, testOneList);
+//    displayRevListWithStack(testOneList);
+//    displayRevListWithoutStack(testOneList);
+//    cout<<"\n"<<findMinInList(testOneList)->data;
+//
+//    ele * testTwoList = unionLists(testOneList, testOneList);
+//    displayList(testTwoList);
+//
+//    ele * testThreeList = unionLists(testOneList, 0);
+//    displayList(testThreeList);
 
 //    destroyList(testOneList);
 //    displayList(testOneList);
